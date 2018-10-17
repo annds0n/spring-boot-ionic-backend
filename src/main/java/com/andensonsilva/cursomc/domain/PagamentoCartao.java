@@ -2,6 +2,9 @@ package com.andensonsilva.cursomc.domain;
 
 import com.andensonsilva.cursomc.domain.enums.EstadoPagamento;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PagamentoCartao extends Pagamento{
 
     private static final long serialVersionUID = 1L;
