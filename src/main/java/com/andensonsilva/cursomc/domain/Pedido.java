@@ -1,6 +1,8 @@
 package com.andensonsilva.cursomc.domain;
 
 import ch.qos.logback.core.net.server.Client;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
     private Date instante;
 

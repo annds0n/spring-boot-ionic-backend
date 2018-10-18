@@ -1,6 +1,8 @@
 package com.andensonsilva.cursomc.domain;
 
 import com.andensonsilva.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -22,13 +24,13 @@ public class Cliente implements Serializable {
     private Integer tipoCliente;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
