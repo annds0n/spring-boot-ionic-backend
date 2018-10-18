@@ -22,4 +22,9 @@ public class CategoriaService {
                 "Categoria não encontrada. Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
 
+    public Categoria inserir(Categoria c) {
+        c.setId(null);
+        return this.repository.save(c);
+    }
+
 }
