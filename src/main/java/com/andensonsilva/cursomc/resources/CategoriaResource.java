@@ -21,7 +21,7 @@ public class CategoriaResource {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
 
         Categoria categoria = this.service.buscar(id);
 
@@ -35,6 +35,15 @@ public class CategoriaResource {
                           .path("/{id}").buildAndExpand(c.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody Categoria c, @PathVariable Integer id){
+        c.setId(id);
+
+        c = this.service.atualizar(c);
+        return ResponseEntity.noContent().build();
 
     }
 

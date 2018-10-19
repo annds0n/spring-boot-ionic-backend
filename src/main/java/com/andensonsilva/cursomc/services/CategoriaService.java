@@ -27,4 +27,9 @@ public class CategoriaService {
         return this.repository.save(c);
     }
 
+    public Categoria atualizar(Categoria c) {
+        this.buscar(c.getId());
+        return this.repository.save(c);
+    }
+
 }
