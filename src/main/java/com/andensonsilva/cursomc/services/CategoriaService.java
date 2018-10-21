@@ -1,6 +1,7 @@
 package com.andensonsilva.cursomc.services;
 
 import com.andensonsilva.cursomc.domain.Categoria;
+import com.andensonsilva.cursomc.domain.Categoria;
 import com.andensonsilva.cursomc.dto.CategoriaDTO;
 import com.andensonsilva.cursomc.repositories.CategoriaRepository;
 import com.andensonsilva.cursomc.services.exceptions.DataIntegrityException;
@@ -35,7 +36,10 @@ public class CategoriaService {
     }
 
     public Categoria atualizar(Categoria c) {
-        this.buscar(c.getId());
+        Categoria categoria = this.buscar(c.getId());
+
+        updateData(categoria, c);
+
         return this.repository.save(c);
     }
 
@@ -62,6 +66,12 @@ public class CategoriaService {
     public Categoria converterDTOparaCategoria(CategoriaDTO categoriaDTO) {
 
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+    }
+
+    /*
+     * Para atualizar apenas os campos possíveis*/
+    private void updateData(Categoria categoria, Categoria categorianewData) {
+        categoria.setNome(categorianewData.getNome());
     }
 
 }
