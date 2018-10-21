@@ -1,12 +1,14 @@
 package com.andensonsilva.cursomc.dto;
 
 import com.andensonsilva.cursomc.domain.Cliente;
+import com.andensonsilva.cursomc.services.validations.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteUpdate
 public class ClienteDTO  implements Serializable {
 
     private static final long serialVersionUID = 250379290415820267L;
