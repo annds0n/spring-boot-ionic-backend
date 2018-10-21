@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class CursomcApplication implements CommandLineRunner {
 
     @Autowired
-    private CategoriaRepository repo;
+    private CategoriaRepository categoriaRepository;
 
     @Autowired
     private ProdutoRepository prodRepo;
@@ -51,6 +51,10 @@ public class CursomcApplication implements CommandLineRunner {
 
         Categoria cat1 = new Categoria(null, "Informática");
         Categoria cat2 = new Categoria(null, "Escritório");
+        Categoria cat3 = new Categoria(null, "Cama mesa e banho");
+        Categoria cat4 = new Categoria(null, "Perfumaria");
+        Categoria cat5 = new Categoria(null, "Cosméticos");
+        Categoria cat6 = new Categoria(null, "Eletrodomésticos");
 
         Produto prod1 = new Produto(null, "computador", 1239.00);
         Produto prod2 = new Produto(null, "Tv", 800.00);
@@ -64,7 +68,7 @@ public class CursomcApplication implements CommandLineRunner {
 
         prod3.getCategorias().addAll(Arrays.asList(cat1));
 
-        this.repo.saveAll(Arrays.asList(cat1, cat2));
+        this.categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6));
         this.prodRepo.saveAll(Arrays.asList(prod1, prod2, prod3));
 
         Estado estado1 = new Estado(null, "Pernambuco");

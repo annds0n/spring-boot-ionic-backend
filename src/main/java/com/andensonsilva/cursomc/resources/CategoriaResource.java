@@ -4,6 +4,7 @@ import com.andensonsilva.cursomc.domain.Categoria;
 import com.andensonsilva.cursomc.dto.CategoriaDTO;
 import com.andensonsilva.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,24 @@ public class CategoriaResource {
         List<Categoria> categorias = this.service.listar();
 
         List<CategoriaDTO> categoriaDTOs = categorias.stream().map(c -> new CategoriaDTO(c)).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(categoriaDTOs);
+    }
+
+    /*
+    * Colocar o tamanho de página 24 por padrão
+    * */
+    @GetMapping("/page")
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "2") Integer size,
+            @RequestParam(defaultValue = "nome") String orderBy,
+            @RequestParam(defaultValue = "ASC") String order
+    ) {
+
+        Page<Categoria> categorias = this.service.encontrarPagina(page, size, orderBy, order);
+
+        Page<CategoriaDTO> categoriaDTOs = categorias.map(c -> new CategoriaDTO(c));
 
         return ResponseEntity.ok().body(categoriaDTOs);
     }
