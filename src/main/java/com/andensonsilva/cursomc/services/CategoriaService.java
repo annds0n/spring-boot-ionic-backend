@@ -1,6 +1,7 @@
 package com.andensonsilva.cursomc.services;
 
 import com.andensonsilva.cursomc.domain.Categoria;
+import com.andensonsilva.cursomc.dto.CategoriaDTO;
 import com.andensonsilva.cursomc.repositories.CategoriaRepository;
 import com.andensonsilva.cursomc.services.exceptions.DataIntegrityException;
 import com.andensonsilva.cursomc.services.exceptions.ObjectNotFoundException;
@@ -56,6 +57,11 @@ public class CategoriaService {
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(order), orderBy);
         return repository.findAll(pageRequest);
+    }
+
+    public Categoria converterDTOparaCategoria(CategoriaDTO categoriaDTO) {
+
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 
 }
