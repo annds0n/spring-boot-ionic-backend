@@ -3,6 +3,7 @@ package com.andensonsilva.cursomc.resources;
 import com.andensonsilva.cursomc.domain.Cliente;
 import com.andensonsilva.cursomc.domain.Cliente;
 import com.andensonsilva.cursomc.dto.ClienteDTO;
+import com.andensonsilva.cursomc.dto.ClienteNewDTO;
 import com.andensonsilva.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -60,7 +61,7 @@ public class ClienteResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO c) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO c) {
         Cliente cliente = this.service.converterDTOparaCliente(c);
         cliente = service.inserir(cliente);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
