@@ -2,6 +2,7 @@ package com.andensonsilva.cursomc.domain;
 
 import com.andensonsilva.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -9,6 +10,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("pagamentoBoleto")
 public class PagamentoBoleto extends Pagamento {
 
     private static final long serialVersionUID = 1L;
