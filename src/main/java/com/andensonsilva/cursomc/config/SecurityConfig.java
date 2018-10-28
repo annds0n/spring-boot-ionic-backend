@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String[] PUBLIC_MATCHERS_READ_ONLY = {
             "/produtos/**",
-            "/categorias/**"
+            "/categorias/**",
+            "/clientes/**"
     };
 
     @Override
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /**
          * Para liberar o acesso ao H2
          */
-        if(Arrays.asList(environment.getActiveProfiles()).contains("test")) {
+        if (Arrays.asList(environment.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
         }
         /**

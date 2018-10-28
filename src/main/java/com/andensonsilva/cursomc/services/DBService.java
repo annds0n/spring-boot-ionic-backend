@@ -2,6 +2,7 @@ package com.andensonsilva.cursomc.services;
 
 import com.andensonsilva.cursomc.domain.*;
 import com.andensonsilva.cursomc.domain.enums.EstadoPagamento;
+import com.andensonsilva.cursomc.domain.enums.Perfil;
 import com.andensonsilva.cursomc.domain.enums.TipoCliente;
 import com.andensonsilva.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,17 +102,22 @@ public class DBService {
         this.cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
         Cliente cliente1 = new Cliente(null, "Maria José", "marybb@gamil.com", "24513231123", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("Esta é uma senha"));
-
         cliente1.getTelefones().addAll(Arrays.asList("24354242", "34243243242"));
+        cliente1.addPerfil(Perfil.CLIENTE);
 
+        Cliente cliente2 = new Cliente(null, "Jainara Pereira", "jana.pere@gamil.com", "43196577058", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("Esta é uma senha"));
+        cliente2.getTelefones().addAll(Arrays.asList("890830348", "78504545392"));
+        cliente2.addPerfil(Perfil.ADMIN);
 
         Endereco endereco1 = new Endereco(null, "Rua Teste", "23", "apt", "Bairrinho", "45545-45", cliente1, cidade1);
         Endereco endereco2 = new Endereco(null, "Rua Teste 2", "24", "Mansão", "Olho roxo", "45545-78", cliente1, cidade2);
+        Endereco endereco3 = new Endereco(null, "Rua Teste 3", "234", "Mansão 1", "Olho roxo 2", "45785-78", cliente2, cidade2);
 
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+        cliente2.getEnderecos().add(endereco3);
 
-        this.clienteRepository.save(cliente1);
-        this.enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
+        this.clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
+        this.enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3));
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Pedido pedido1 = new Pedido(null, simpleDateFormat.parse("30/09/2017 12:45"), cliente1, endereco1);
