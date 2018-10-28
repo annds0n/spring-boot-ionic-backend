@@ -5,6 +5,7 @@ import com.andensonsilva.cursomc.domain.enums.EstadoPagamento;
 import com.andensonsilva.cursomc.domain.enums.TipoCliente;
 import com.andensonsilva.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -40,6 +41,9 @@ public class DBService {
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void instatiateDatabase() throws ParseException {
         Categoria cat1 = new Categoria(null, "Informática");
@@ -96,7 +100,7 @@ public class DBService {
         this.estadoRepository.saveAll(Arrays.asList(estado1, estado2));
         this.cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-        Cliente cliente1 = new Cliente(null, "Maria José", "marybb@gamil.com", "24513231123", TipoCliente.PESSOAFISICA);
+        Cliente cliente1 = new Cliente(null, "Maria José", "marybb@gamil.com", "24513231123", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("Esta é uma senha"));
 
         cliente1.getTelefones().addAll(Arrays.asList("24354242", "34243243242"));
 
