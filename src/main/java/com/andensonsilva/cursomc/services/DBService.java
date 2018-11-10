@@ -105,7 +105,7 @@ public class DBService {
         cliente1.getTelefones().addAll(Arrays.asList("24354242", "34243243242"));
         cliente1.addPerfil(Perfil.CLIENTE);
 
-        Cliente cliente2 = new Cliente(null, "Jainara Pereira", "jana.pere@gamil.com", "43196577058", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("Esta é uma senha"));
+        Cliente cliente2 = new Cliente(null, "Jainara Pereira", "jana.pere@gamil.com", "43196577058", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("321"));
         cliente2.getTelefones().addAll(Arrays.asList("890830348", "78504545392"));
         cliente2.addPerfil(Perfil.ADMIN);
 
