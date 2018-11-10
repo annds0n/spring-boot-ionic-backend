@@ -8,6 +8,7 @@ import com.andensonsilva.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,6 +38,7 @@ public class ClienteResource {
     /*
      * Colocar o tamanho de página 24 por padrão
      * */
+    @PreAuthorize("hasAnyRole('ADMIN')") // Apenas usuários com oermissão ADMIN, podem acessar o end-point
     @GetMapping("/page")
     public ResponseEntity<Page<ClienteDTO>> findPage(
             @RequestParam(defaultValue = "0") Integer page,
@@ -82,6 +84,7 @@ public class ClienteResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.remover(id);

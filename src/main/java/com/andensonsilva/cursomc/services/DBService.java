@@ -101,7 +101,7 @@ public class DBService {
         this.estadoRepository.saveAll(Arrays.asList(estado1, estado2));
         this.cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-        Cliente cliente1 = new Cliente(null, "Maria José", "marybb@gamil.com", "24513231123", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("Esta é uma senha"));
+        Cliente cliente1 = new Cliente(null, "Maria José", "marybb@gamil.com", "24513231123", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
         cliente1.getTelefones().addAll(Arrays.asList("24354242", "34243243242"));
         cliente1.addPerfil(Perfil.CLIENTE);
 
