@@ -1,18 +1,22 @@
 package com.andensonsilva.cursomc.services;
 
-import com.andensonsilva.cursomc.domain.ItemPedido;
-import com.andensonsilva.cursomc.domain.PagamentoBoleto;
-import com.andensonsilva.cursomc.domain.Pedido;
+import com.andensonsilva.cursomc.domain.*;
 import com.andensonsilva.cursomc.domain.enums.EstadoPagamento;
 import com.andensonsilva.cursomc.repositories.ItemPedidoRepository;
 import com.andensonsilva.cursomc.repositories.PagamentoRepository;
 import com.andensonsilva.cursomc.repositories.PedidoRepository;
+import com.andensonsilva.cursomc.security.Usuario;
+import com.andensonsilva.cursomc.services.exceptions.AuthorizationException;
 import com.andensonsilva.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +37,9 @@ public class PedidoService {
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private ClienteService clienteService;
 
     public PedidoService() {
     }
@@ -66,6 +73,22 @@ public class PedidoService {
         itemPedidoRepository.saveAll(pedido.getItens());
 
         return pedido;
+    }
+
+    public Page<Pedido> buscarPagina( Integer page, Integer size, String orderBy, String order) {
+
+        Usuario usuario = UsuarioService.authenticated();
+
+        if(usuario == null) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(order), orderBy);
+
+        Cliente cliente = clienteService.buscar(usuario.getId());
+
+
+        return repository.findByCliente(cliente, pageRequest);
     }
 
 }

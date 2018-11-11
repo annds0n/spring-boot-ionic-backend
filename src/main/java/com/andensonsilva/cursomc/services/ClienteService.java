@@ -29,10 +29,10 @@ import java.util.Optional;
 public class ClienteService {
 
     @Autowired
-    ClienteRepository repository;
+    private ClienteRepository repository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
+    private EnderecoRepository enderecoRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
