@@ -3,11 +3,14 @@ package com.andensonsilva.cursomc.services;
 import com.andensonsilva.cursomc.domain.Cidade;
 import com.andensonsilva.cursomc.domain.Cliente;
 import com.andensonsilva.cursomc.domain.Endereco;
+import com.andensonsilva.cursomc.domain.enums.Perfil;
 import com.andensonsilva.cursomc.domain.enums.TipoCliente;
 import com.andensonsilva.cursomc.dto.ClienteDTO;
 import com.andensonsilva.cursomc.dto.ClienteNewDTO;
 import com.andensonsilva.cursomc.repositories.ClienteRepository;
 import com.andensonsilva.cursomc.repositories.EnderecoRepository;
+import com.andensonsilva.cursomc.security.Usuario;
+import com.andensonsilva.cursomc.services.exceptions.AuthorizationException;
 import com.andensonsilva.cursomc.services.exceptions.DataIntegrityException;
 import com.andensonsilva.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,15 @@ public class ClienteService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Cliente buscar(Integer id) {
+
+        Usuario usuario = UsuarioService.authenticated();
+
+        /**
+         * Um usuário sem acesso de admin só pode recuperar a si mesmo
+         */
+        if(usuario == null || !usuario.hasRole(Perfil.ADMIN) && !id.equals(usuario.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
 
         Optional<Cliente> cat = this.repository.findById(id);
 

@@ -25,6 +25,7 @@ public class ClienteResource {
     private ClienteService service;
 
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping()
     public ResponseEntity<List<ClienteDTO>> findAll() {
 
